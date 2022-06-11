@@ -1,7 +1,5 @@
 # FB-SCRAPER
 
-# Facebook page scraper :
-
 In this work I tried to scrape the data from the FB public Page of [Nintendo](https://www.facebook.com/Nintendo/ ), then build up this service to form a web framework using fastAPI. 
 Besides, the scraped posts and all their details were saved in a mongodb database.
 Finally, this scraping service was Dockerized  as well as the database.
