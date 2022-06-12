@@ -8,13 +8,17 @@ services:
         - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
         - "27017:27017"
+
   web:
-    build: .
+    #build: ./src
     command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8002
 
     ports:
       - 8002:8002
+
+    depends_on:
+      - db
     env_file:
-    - app/.env
+    - /home/aessefi/FB-SCRAPER/src/app/.env
 
 
