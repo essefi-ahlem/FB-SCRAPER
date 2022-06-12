@@ -113,5 +113,5 @@ async def stats_count_posts():
     return {"count_posts":db.posts.count_documents({})}
 
 
-if __name__ == '__main__':
-    uvicorn.run(app, port=8000, host="0.0.0.0")
+#if __name__ == '__main__':
+ #   uvicorn.run(app, port=8002, host="0.0.0.0")

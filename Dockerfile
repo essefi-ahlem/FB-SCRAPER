@@ -18,3 +18,4 @@ COPY . /scraping_app
 RUN pip install -r /scraping_app/requirements.txt 
 
 CMD ["python", "src/app/main.py"]
+
