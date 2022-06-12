@@ -68,7 +68,6 @@ sudo systemctl status mongod
 
 3. Run the mongo shell and add a user with read/write privileges. 
 ```
-use admin
 db.createUser({ user: "admin" , pwd: "admin", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]})
 ```
 4. Log in to mongo as the new user
@@ -77,7 +76,7 @@ mongo --port 27017 -u "admin" -p "admin" --authenticationDatabase "admin"
 ```
 5. Cretae a new db named fb_scraper.Then Create a collection named posts.
 ```
-use fb_scraper
+use db
 db.createCollection("posts")
 ```
 
