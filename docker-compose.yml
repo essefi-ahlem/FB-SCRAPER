@@ -7,11 +7,12 @@ services:
         - MONGO_INITDB_ROOT_USERNAME=admin
         - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
-        - "27018:27018"
-
+        - "27017:27017"
+    #command: "db.createUser({ user: 'admin' , pwd: 'admin', roles: ['userAdminAnyDatabase', 'dbAdminAnyDatabase', 'readWriteAnyDatabase']})"
+    
   web:
-    #build: ./src
-    image : scraper:latest
+    build: .
+    #image : scraper:latest
     
     #command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8003
     ports:

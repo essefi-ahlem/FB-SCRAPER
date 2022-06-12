@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9
+FROM python:3.9.7
 
 #set the working directory
 WORKDIR /scraping_app

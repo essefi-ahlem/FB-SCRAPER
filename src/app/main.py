@@ -4,59 +4,17 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os 
 from fastapi import FastAPI
-from typing import Optional
-from pydantic import BaseModel
-import uvicorn
+from uvicorn import Server, Config 
+from base_models import ScrapePostSchema,FindPostSchema,DeletePost
+from connection import connect_db
 
 
-def connect_db(connection_string,verbose=False):
-    '''Connect to Database. 
-    Args: 
-        connection_string: str
-    Return:
-        db: Pymongo session to the db
-    '''
-    try:
-        clt = MongoClient(connection_string)
-        db = clt["fb_scraper"]
-        if verbose:
-            print("The database was loaded. list of collections:\n",db.list_collection_names())
-        return db
-    except Exception as err:
-        print(err)
-        
-class ScrapePostSchema(BaseModel):
-    '''
-    Request Model for scraping posts from nintendo facebook page.
-    args:   pages: nbr of pages to scrape
-            extra_info: bool, get the post reactions if true
-            options: a dict of options. Exemple: Set options={"comments": True} to extract comments
-    '''
-    pages: int = 1
-    extra_info: Optional[bool] = False
-    options: Optional[dict]
-
-class FindPostSchema(BaseModel):
-    '''
-    Request Model for scraping.
-    Refer to pymongo and mongodb documentation for further details.
-
-    Fileds:
-        fields: fieldnames to be retrieved for each document
-        query: find the post by post_id
-    '''
-    fields: dict = { "post_id": 1, "text": 1,"likes":1, "comments":1} #return these fields
-    query: dict = {"post_id":"5366122223472187"}
-
-
-class DeletePost(BaseModel):
-    delete_one: bool = False
-    query: dict = {"post_id":"5366122223472187"}
-
+ 
 app = FastAPI()
 load_dotenv(".env")
 connection_string = os.environ.get("DB_CONNECTION")
-db = connect_db(connection_string=connection_string ,verbose=True)
+db = connect_db(verbose=True)
+#db=connection()
 
 @app.get("/")
 async def root():
@@ -113,5 +71,6 @@ async def stats_count_posts():
     return {"count_posts":db.posts.count_documents({})}
 
 
-#if __name__ == '__main__':
- #   uvicorn.run(app, port=8002, host="0.0.0.0")
+if __name__ == '__main__':
+    server = Server(Config(app=app, host='0.0.0.0', port=8003))
+    server.run()
