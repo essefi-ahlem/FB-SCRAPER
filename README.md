@@ -24,7 +24,7 @@ Finally, this scraping service was Dockerized  as well as the database.
 3. Activate your virtual environment 
 
     ```
-    source py_env/bin/activate #in Ubuntu 20.04 
+    source app/py_env/bin/activate #in Ubuntu 20.04 
     ```
 
 4. While the py_env is active, use the requirements.txt with pip or these commands:
